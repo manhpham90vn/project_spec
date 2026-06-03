@@ -51,14 +51,23 @@ docs/
 - **Sơ đồ (Diagrams):** ưu tiên dùng [Mermaid](https://mermaid.js.org/) để version được bằng Git và render trực tiếp trên GitHub/GitLab. **Nhãn bên trong diagram dùng tiếng Anh** (vd `Login`, `Task Board`).
 - **Độ ưu tiên (Priority):** dùng [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) — Must / Should / Could / Won't.
 
-## Định dạng tài liệu (Formatting)
+## Kiểm tra & Định dạng (Lint & Formatting)
 
-Repo dùng [Prettier](https://prettier.io/) để canh đều định dạng Markdown (canh cột bảng, khoảng cách...). Cấu hình ở `.prettierrc.json`.
+Repo dùng hai công cụ:
+
+- [markdownlint](https://github.com/DavidAnson/markdownlint-cli2) — bắt lỗi cấu trúc Markdown (heading, danh sách, link...). Cấu hình ở `.markdownlint-cli2.jsonc`.
+- [Prettier](https://prettier.io/) — canh đều định dạng (canh cột bảng, khoảng cách...). Cấu hình ở `.prettierrc.json`.
 
 ```bash
-npm install        # cài Prettier (lần đầu)
-npm run format     # format toàn bộ file .md
-npm run format:check  # chỉ kiểm tra, không sửa (dùng trong CI)
+npm install           # cài công cụ (lần đầu)
+npm run lint          # kiểm tra lỗi Markdown
+npm run lint:fix      # tự sửa lỗi Markdown sửa được
+npm run format        # format toàn bộ file .md
+npm run format:check  # chỉ kiểm tra định dạng, không sửa
 ```
 
-> Khuyến nghị chạy `npm run format` trước khi commit để tài liệu luôn đồng nhất.
+> Khuyến nghị chạy `npm run lint:fix && npm run format` trước khi commit.
+
+## Tích hợp liên tục (CI)
+
+Workflow `.github/workflows/lint.yml` (GitHub Actions) tự chạy `npm run lint` và `npm run format:check` trên mỗi push và pull request, đảm bảo tài liệu luôn đạt chuẩn trước khi merge.
