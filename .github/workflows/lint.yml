@@ -1,0 +1,30 @@
+name: Lint Docs
+
+# Chạy kiểm tra tài liệu trên mỗi push và pull request
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  lint:
+    name: Markdown lint & format check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint Markdown (markdownlint)
+        run: npm run lint
+
+      - name: Check formatting (Prettier)
+        run: npm run format:check

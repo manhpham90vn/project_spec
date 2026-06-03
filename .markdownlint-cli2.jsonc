@@ -1,0 +1,16 @@
+{
+  // Cấu hình quy tắc markdownlint cho bộ chuẩn tài liệu spec.
+  // Tham khảo: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+  "config": {
+    "default": true,
+    "MD013": false, // Độ dài dòng (line-length) — không giới hạn vì có bảng & prose dài
+    "MD024": { "siblings_only": true }, // Cho phép trùng heading nếu khác nhánh (vd "Lịch sử thay đổi")
+    "MD033": false, // Cho phép HTML nội dòng — dùng cho chú thích <!-- --> trong template
+    "MD034": false, // Cho phép URL trần (vd link Figma trong bảng)
+    "MD036": false, // Cho phép **chữ đậm** làm nhãn (vd "**Các trạng thái:**")
+    "MD040": false, // Không bắt buộc khai báo ngôn ngữ cho code block (vd cây thư mục)
+    "MD041": false // Dòng đầu không bắt buộc là heading — template mở đầu bằng chú thích
+  },
+  "globs": ["**/*.md"],
+  "ignores": ["node_modules", "**/node_modules/**"]
+}
